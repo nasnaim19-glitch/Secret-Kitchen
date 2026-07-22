@@ -3,6 +3,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 
 import cuisineRoutes from "./routes/cuisineRoutes.js";
+import recipeRoutes from "./routes/recipeRoutes.js";
 
 dotenv.config();
 
@@ -21,5 +22,6 @@ app.get("/", (req, res) => {
 
 // API Routes
 app.use("/api/cuisines", cuisineRoutes);
+app.use("/api/recipes", recipeRoutes);
 
 export default app;
