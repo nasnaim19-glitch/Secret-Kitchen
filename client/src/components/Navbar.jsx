@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const Nav = styled.nav`
@@ -8,6 +9,12 @@ const Nav = styled.nav`
   justify-content: space-between;
   background-color: #fffaf5;
   border-bottom: 1px solid #eadfd6;
+
+  @media (max-width: 700px) {
+    padding: 16px 20px;
+    flex-direction: column;
+    gap: 16px;
+  }
 `;
 
 const Logo = styled.h1`
@@ -19,9 +26,11 @@ const Logo = styled.h1`
 const Links = styled.div`
   display: flex;
   gap: 24px;
+  flex-wrap: wrap;
+  justify-content: center;
 `;
 
-const NavLink = styled.a`
+const StyledLink = styled(Link)`
   color: #4b2e24;
   text-decoration: none;
   font-weight: 600;
@@ -37,10 +46,10 @@ function Navbar() {
       <Logo>Secret Kitchen</Logo>
 
       <Links>
-        <NavLink href="/">Home</NavLink>
-        <NavLink href="#cuisines">Cuisines</NavLink>
-        <NavLink href="#recipes">Recipes</NavLink>
-        <NavLink href="/login">Login</NavLink>
+        <StyledLink to="/">Home</StyledLink>
+        <StyledLink to="/cuisines">Cuisines</StyledLink>
+        <StyledLink to="/recipes">Recipes</StyledLink>
+        <StyledLink to="/login">Login</StyledLink>
       </Links>
     </Nav>
   );
