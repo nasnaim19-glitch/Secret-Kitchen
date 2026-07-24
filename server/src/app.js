@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 
 import cuisineRoutes from "./routes/cuisineRoutes.js";
 import recipeRoutes from "./routes/recipeRoutes.js";
+import authRoutes from "./routes/authRoutes.js";
 
 dotenv.config();
 
@@ -23,5 +24,6 @@ app.get("/", (req, res) => {
 // API Routes
 app.use("/api/cuisines", cuisineRoutes);
 app.use("/api/recipes", recipeRoutes);
+app.use("/api/auth", authRoutes);
 
 export default app;
