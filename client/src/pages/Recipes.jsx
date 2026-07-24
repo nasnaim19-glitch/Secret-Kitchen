@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 import Navbar from "../components/Navbar";
 import RecipeCard from "../components/RecipeCard";
@@ -42,6 +43,28 @@ const Content = styled.main`
   }
 `;
 
+const LoginNotice = styled.div`
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto 36px;
+  padding: 18px 20px;
+  text-align: center;
+  background-color: #f7eee7;
+  border: 1px solid #eadfd6;
+  border-radius: 10px;
+  color: #725448;
+`;
+
+const LoginLink = styled(Link)`
+  color: #7a3e2d;
+  font-weight: 700;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+`;
+
 const CardsGrid = styled.div`
   width: 100%;
   max-width: 1400px;
@@ -71,14 +94,26 @@ function Recipes() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
+  const token = localStorage.getItem("token");
+  const isLoggedIn = Boolean(token);
+
   useEffect(() => {
     async function fetchRecipes() {
       try {
         setLoading(true);
         setError("");
 
+        const config = token
+          ? {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          : {};
+
         const response = await axios.get(
-          "http://localhost:3001/api/recipes"
+          "http://localhost:3001/api/recipes",
+          config
         );
 
         setRecipes(response.data);
@@ -91,7 +126,7 @@ function Recipes() {
     }
 
     fetchRecipes();
-  }, []);
+  }, [token]);
 
   return (
     <Page>
@@ -107,6 +142,14 @@ function Recipes() {
       </Header>
 
       <Content>
+        {!isLoggedIn && (
+          <LoginNotice>
+            You are viewing public recipes.{" "}
+            <LoginLink to="/login">Log in</LoginLink> to unlock the secret
+            recipes.
+          </LoginNotice>
+        )}
+
         {loading && <Message>Loading recipes...</Message>}
 
         {error && <Message>{error}</Message>}

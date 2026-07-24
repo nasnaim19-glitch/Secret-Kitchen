@@ -2,7 +2,14 @@ import prisma from "../config/prisma.js";
 
 export async function getAllRecipes(req, res) {
   try {
+    const isAuthenticated = Boolean(req.user);
+
     const recipes = await prisma.recipe.findMany({
+      where: isAuthenticated
+        ? {}
+        : {
+            isSecret: false,
+          },
       include: {
         cuisine: true,
       },
@@ -43,6 +50,12 @@ export async function getRecipeById(req, res) {
     if (!recipe) {
       return res.status(404).json({
         message: "Recipe not found",
+      });
+    }
+
+    if (recipe.isSecret && !req.user) {
+      return res.status(401).json({
+        message: "Login is required to view this secret recipe",
       });
     }
 
