@@ -1,7 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import Navbar from "../components/Navbar";
 
@@ -109,6 +109,8 @@ const RegisterLink = styled(Link)`
 `;
 
 function Login() {
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -145,6 +147,8 @@ function Login() {
 
       setSuccess(true);
       setMessage(response.data.message);
+
+      navigate("/");
     } catch (requestError) {
       console.error("LOGIN ERROR:", requestError);
 

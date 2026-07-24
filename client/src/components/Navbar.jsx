@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 const Nav = styled.nav`
@@ -25,6 +25,7 @@ const Logo = styled.h1`
 
 const Links = styled.div`
   display: flex;
+  align-items: center;
   gap: 24px;
   flex-wrap: wrap;
   justify-content: center;
@@ -40,7 +41,49 @@ const StyledLink = styled(Link)`
   }
 `;
 
+const UserName = styled.span`
+  color: #7a3e2d;
+  font-weight: 700;
+`;
+
+const LogoutButton = styled.button`
+  padding: 8px 14px;
+  border: none;
+  border-radius: 8px;
+  background-color: #7a3e2d;
+  color: white;
+  font-weight: 700;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #5f2f22;
+  }
+`;
+
 function Navbar() {
+  const navigate = useNavigate();
+
+  const token = localStorage.getItem("token");
+  const storedUser = localStorage.getItem("user");
+
+  let user = null;
+
+  try {
+    user = storedUser ? JSON.parse(storedUser) : null;
+  } catch (error) {
+    console.error("FAILED TO PARSE USER:", error);
+  }
+
+  const isLoggedIn = Boolean(token && user);
+
+  function handleLogout() {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+
+    navigate("/login");
+    window.location.reload();
+  }
+
   return (
     <Nav>
       <Logo>Secret Kitchen</Logo>
@@ -49,7 +92,18 @@ function Navbar() {
         <StyledLink to="/">Home</StyledLink>
         <StyledLink to="/cuisines">Cuisines</StyledLink>
         <StyledLink to="/recipes">Recipes</StyledLink>
-        <StyledLink to="/login">Login</StyledLink>
+
+        {isLoggedIn ? (
+          <>
+            <UserName>Hello, {user.firstName}</UserName>
+
+            <LogoutButton type="button" onClick={handleLogout}>
+              Logout
+            </LogoutButton>
+          </>
+        ) : (
+          <StyledLink to="/login">Login</StyledLink>
+        )}
       </Links>
     </Nav>
   );
