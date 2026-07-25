@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Home from "./pages/Home";
 import Cuisines from "./pages/Cuisines";
+import CuisineDetails from "./pages/CuisineDetails";
 import Recipes from "./pages/Recipes";
 import RecipeDetails from "./pages/RecipeDetails";
 import Login from "./pages/Login";
@@ -16,6 +17,11 @@ function App() {
         <Route path="/" element={<Home />} />
 
         <Route path="/cuisines" element={<Cuisines />} />
+
+        <Route
+          path="/cuisines/:id"
+          element={<CuisineDetails />}
+        />
 
         <Route path="/recipes" element={<Recipes />} />
 
