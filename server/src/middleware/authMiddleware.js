@@ -1,10 +1,15 @@
 import jwt from "jsonwebtoken";
+import logger from "../config/logger.js";
 
 export function authenticateToken(req, res, next) {
   try {
     const authHeader = req.headers.authorization;
 
     if (!authHeader || !authHeader.startsWith("Bearer ")) {
+      logger.warn(
+        `Authentication failed: missing token | IP: ${req.ip}`
+      );
+
       return res.status(401).json({
         message: "Authentication token is required",
       });
@@ -20,7 +25,9 @@ export function authenticateToken(req, res, next) {
 
     next();
   } catch (error) {
-    console.error("AUTH MIDDLEWARE ERROR:", error);
+    logger.error(
+      `Authentication failed: ${error.message} | IP: ${req.ip}`
+    );
 
     return res.status(401).json({
       message: "Invalid or expired token",
@@ -45,7 +52,10 @@ export function optionalAuthenticateToken(req, res, next) {
       email: decoded.email,
     };
   } catch (error) {
-    console.error("OPTIONAL AUTH ERROR:", error);
+    logger.warn(
+      `Optional authentication failed: ${error.message} | IP: ${req.ip}`
+    );
+
     req.user = null;
   }
 
