@@ -1,0 +1,42 @@
+Secret Kitchen - Third Party Licenses
+=====================================
+
+This file lists the direct third-party dependencies used by the project.
+
+Client dependencies
+===================
+@eslint/js (^10.0.1) — MIT
+@testing-library/dom (^10.4.1) — MIT
+@testing-library/jest-dom (^7.0.0) — MIT
+@testing-library/react (^16.3.2) — MIT
+@types/react (^19.2.17) — MIT
+@types/react-dom (^19.2.3) — MIT
+@vitejs/plugin-react (^6.0.3) — MIT
+@vitest/coverage-v8 (^4.1.10) — MIT
+axios (^1.18.1) — MIT
+eslint (^10.6.0) — MIT
+eslint-plugin-react-hooks (^7.1.1) — MIT
+eslint-plugin-react-refresh (^0.5.3) — MIT
+globals (^17.7.0) — MIT
+jsdom (^29.1.1) — MIT
+react (^19.2.7) — MIT
+react-dom (^19.2.7) — MIT
+react-router-dom (^7.18.1) — MIT
+styled-components (^6.4.4) — MIT
+vite (^8.1.1) — MIT
+vitest (^4.1.10) — MIT
+
+Server dependencies
+===================
+@prisma/client (^6.19.2) — Apache-2.0
+bcrypt (^6.0.0) — MIT
+cors (^2.8.6) — MIT
+dotenv (^17.4.2) — BSD-2-Clause
+express (^5.2.1) — MIT
+jsonwebtoken (^9.0.3) — MIT
+morgan (^1.11.0) — MIT
+prisma (^6.19.2) — Apache-2.0
+supertest (^7.2.2) — MIT
+tsx (^4.23.1) — MIT
+typescript (^7.0.2) — Apache-2.0
+winston (^3.19.0) — MIT
